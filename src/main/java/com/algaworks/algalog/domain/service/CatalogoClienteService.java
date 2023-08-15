@@ -15,6 +15,13 @@ import lombok.AllArgsConstructor;
 public class CatalogoClienteService {
 	private ClienteRepository clienteRepository;
 	
+	public Cliente buscar(Long clienteId) {
+		Cliente cliente = clienteRepository.findById(clienteId)
+				.orElseThrow(() -> new NegocioException("Cliente não encontrado"));
+		
+		return cliente;
+	}
+	
 	@Transactional
 	public Cliente salvar(Cliente cliente) {
 		boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail())
